@@ -26,7 +26,7 @@ function App() {
         <h1 className="text-xl">Cookies for {url}</h1>
         <div className="cookie_list">
           {cookies.map((cookie) => (
-            <Cookie cookie={cookie} />
+            <Cookie cookie={cookie} url={url} />
           ))}
         </div>
       </div>

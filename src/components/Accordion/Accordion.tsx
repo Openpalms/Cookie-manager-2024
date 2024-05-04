@@ -13,7 +13,7 @@ export const Accordion: FC<Props> = ({ title, mainText, children }) => {
     <div className="py-2">
       <button
         onClick={() => setAccordionOpen(!accordionOpen)}
-        className="flex justify-between w-full"
+        className="flex justify-between w-full items-center"
       >
         <span className="text-lg">{title}</span>
         <svg
