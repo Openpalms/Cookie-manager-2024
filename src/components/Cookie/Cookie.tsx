@@ -27,7 +27,7 @@ export const CookieToRender: FC<Props> = ({ cookie, url }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     const newValue = type === 'checkbox' ? checked : value;
-
+    console.log(name, newValue);
     setEditedCookie({ ...editedCookie, [name]: newValue });
   };
 
@@ -35,13 +35,14 @@ export const CookieToRender: FC<Props> = ({ cookie, url }) => {
     const updatedCookie: chrome.cookies.SetDetails = {
       url,
       name: editedCookie.name,
-      value: editedCookie.value,
       domain: editedCookie.domain,
       path: editedCookie.path,
+      value: editedCookie.value,
       secure: editedCookie.secure,
       httpOnly: editedCookie.httpOnly,
       expirationDate: editedCookie.expirationDate,
     };
+    console.log('updatedCookie', updatedCookie);
 
     chrome.cookies.set(updatedCookie, (cookie) => {
       if (cookie) {
@@ -51,6 +52,7 @@ export const CookieToRender: FC<Props> = ({ cookie, url }) => {
       }
     });
   };
+
   const onDeleteCookie = () => {
     chrome.cookies.remove({ url: url, name: editedCookie.name }, (details) => {
       if (details) {

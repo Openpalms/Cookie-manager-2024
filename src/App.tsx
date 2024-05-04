@@ -27,7 +27,7 @@ function App() {
 
         <div className="cookie_list">
           {cookies.map((cookie) => (
-            <Cookie cookie={cookie} url={url} />
+            <Cookie cookie={cookie} url={url} key={cookie.name} />
           ))}
         </div>
       </div>
