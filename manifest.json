@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0",
+  "manifest_version": 3,
+  "name": "Cookie manager 2024",
+  "description": "This is a Chrome extension built with React and TypeScript",
+  "action": {
+    "default_popup": "js/index.html",
+    "default_title": "Cookie manager 2024"
+  },
+  "start_url": ".",
+  "permissions": [
+    "tabs",
+    "\u003Call_urls\u003E",
+    "cookies",
+    "contextMenus",
+    "unlimitedStorage",
+    "notifications",
+    "storage",
+    "clipboardWrite"
+  ],
+  "host_permissions": ["*://*/*"]
+}
