@@ -25,8 +25,10 @@ export const CookieToRender: FC<Props> = ({ cookie, url }) => {
   const [editedCookie, setEditedCookie] = useState(cookie);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setEditedCookie({ ...editedCookie, [name]: value });
+    const { name, value, type, checked } = e.target;
+    const newValue = type === 'checkbox' ? checked : value;
+
+    setEditedCookie({ ...editedCookie, [name]: newValue });
   };
 
   const onUpdateCookie = () => {
@@ -46,6 +48,15 @@ export const CookieToRender: FC<Props> = ({ cookie, url }) => {
         console.log('Cookie updated successfully:', cookie);
       } else {
         console.error('Failed to update cookie');
+      }
+    });
+  };
+  const onDeleteCookie = () => {
+    chrome.cookies.remove({ url: url, name: editedCookie.name }, (details) => {
+      if (details) {
+        console.log('Cookie deleted successfully:', details);
+      } else {
+        console.error('Failed to delete cookie');
       }
     });
   };
@@ -76,7 +87,7 @@ export const CookieToRender: FC<Props> = ({ cookie, url }) => {
           </p>
           <div className="flex flex-col gap-2 w-full">
             <div className="w-1/2 flex items-center justify-start gap-4">
-              <label>is Secure:</label>
+              <label>Secure:</label>
               <input
                 type={'checkbox'}
                 name={'secure'}
@@ -86,7 +97,7 @@ export const CookieToRender: FC<Props> = ({ cookie, url }) => {
               />
             </div>
             <div className="w-1/2 flex items-center justify-start gap-4">
-              <label>is HttpOnly:</label>
+              <label>HttpOnly:</label>
               <input
                 type={'checkbox'}
                 name={'httpOnly'}
@@ -96,12 +107,20 @@ export const CookieToRender: FC<Props> = ({ cookie, url }) => {
               />
             </div>
           </div>
-          <button
-            onClick={onUpdateCookie}
-            className="bg-blue-500 text-white px-4 py-2 rounded"
-          >
-            Save
-          </button>
+          <div className="flex gap-3 items-center">
+            <button
+              onClick={onUpdateCookie}
+              className="bg-blue-500 hover:bg-blue-600 active:scale-95 text-white px-4 py-2 rounded transition duration-300"
+            >
+              Save
+            </button>
+            <button
+              onClick={onDeleteCookie}
+              className="bg-red-500 hover:bg-red-600 outline-none border-none active:scale-95 text-white px-4 py-2 rounded transition duration-300"
+            >
+              Delete cookie
+            </button>
+          </div>
         </div>
       </Accordion>
     </div>

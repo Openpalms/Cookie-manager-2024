@@ -22,8 +22,9 @@ function App() {
 
   return (
     <>
-      <div>
-        <h1 className="text-xl">Cookies for {url}</h1>
+      <div className="w-[500px]">
+        <h1 className="text-xl">Cookies for</h1>
+        <p className="text-sm  break-words">{url}</p>
         <div className="cookie_list">
           {cookies.map((cookie) => (
             <Cookie cookie={cookie} url={url} />
